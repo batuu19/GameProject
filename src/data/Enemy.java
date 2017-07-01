@@ -45,13 +45,48 @@ public class Enemy {
         if(first)
             first = false;
         else{
-            x += directions[0];
-            y += directions[1];
+            if(CheckpointReached())
+                curremtCheckpoint++;
+            else{
+                x += Delta() * checkpoints.get(curremtCheckpoint).getxDirection();
+                y += Delta() * checkpoints.get(curremtCheckpoint).getxDirection();
+
+            }
         }
     }
 
-    private void PopulateCheckpointList(){
+     private boolean CheckpointReached(){
+        boolean reached = false;
+        Tile t = checkpoints.get(curremtCheckpoint).getTile();
+        //check if position reached tile within variance of 3 (arbitrary)
+        if(     x > t.getX() - 3 &&
+                x < t.getX() + 3 &&
+                y > t.getY() - 3 &&
+                y > t.getY() + 3 ){
 
+            reached = true;
+            x = t.getX();
+            y = t.getY();
+        }
+
+         return reached;
+     }
+
+    private void PopulateCheckpointList(){
+        checkpoints.add(FindNextC(startTile,directions = FindNextD(startTile)));
+
+        int counter = 0;
+        boolean cont = true;
+        while (cont){
+            int[] currentD = FindNextD(checkpoints.get(counter).getTile());
+            //Check if a next direction/checkpoint exist, end after 20 checkpoints (arbitrary)
+            if(currentD[0] == 2 || counter == 20)
+                cont = false;
+            else
+                checkpoints.add(FindNextC(checkpoints.get(counter).getTile(),
+                    directions = FindNextD(checkpoints.get(counter).getTile())));
+            counter++;
+        }
     }
 
     private Checkpoint FindNextC(Tile s,int[] dir){
@@ -104,6 +139,8 @@ public class Enemy {
             dir[1] = 0;
         }
         else{
+            dir[0] = 2;
+            dir[1] = 2;
             System.out.println("NO DIRECTION FOUND");
         }
 
