@@ -30,17 +30,30 @@ public class Enemy {
     public void Update(){
         if(first)
             first = false;
-        else
-            x += Delta() * speed;
+        else{
+            if(pathContinues())
+                x += Delta() * speed;
+        }
     }
 
+    private boolean pathContinues(){
+        boolean answer = true;
 
+        Tile myTile = grid.GetTile((int) (x/64), (int) (y/64));
+        Tile nextTile = grid.GetTile((int) (x/64) +1, (int) (y/64));
+
+        if(myTile.getType() != nextTile.getType())
+            answer = false;
+        return answer;
+    }
 
     public void Draw(){
         DrawQuadTex(texture,x,y,width,height);
     }
 
-
+    public TileGrid getTileGrid() {
+        return grid;
+    }
 
     public int getWidth() {
         return width;
@@ -76,6 +89,10 @@ public class Enemy {
 
     public boolean isFirst() {
         return first;
+    }
+
+    public void setGrid(TileGrid grid) {
+        this.grid = grid;
     }
 
     public void setWidth(int width) {
