@@ -3,6 +3,7 @@ package data;
 import org.newdawn.slick.opengl.Texture;
 
 import static helpers.Artist.DrawQuadTex;
+import static helpers.Clock.Delta;
 
 /**
  * Created by Bartek on 01.07.2017.
@@ -12,6 +13,7 @@ public class Enemy {
     private float speed,x,y;
     private Texture texture;
     private Tile startTile;
+    private boolean first = true;
 
     public Enemy(Texture texture,Tile startTile, int width, int height,float speed ) {
         this.texture = texture;
@@ -20,6 +22,13 @@ public class Enemy {
         this.width = width;
         this.height = height;
         this.speed = speed;
+    }
+
+    public void Update(){
+        if(first)
+            first = false;
+        else
+            x += Delta() * speed;
     }
 
     public void Draw(){

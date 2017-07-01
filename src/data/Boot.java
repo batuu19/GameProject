@@ -1,6 +1,7 @@
 package data;
 
 import helpers.Artist;
+import helpers.Clock;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -38,8 +39,11 @@ public class Boot {
 
         TileGrid grid = new TileGrid(map);
         grid.SetTile(3,4,grid.GetTile(2,4).getType());
-        Enemy e = new Enemy(QuickLoad("enemy"),grid.GetTile(10,10),64,64,2);
+        Enemy e = new Enemy(QuickLoad("enemy"),grid.GetTile(10,10),64,64,1);
+
         while(!Display.isCloseRequested()){
+            Clock.update();
+            e.Update();
 
             grid.Draw();
             e.Draw();
