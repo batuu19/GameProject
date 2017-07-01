@@ -46,7 +46,12 @@ public class Enemy {
             first = false;
         else{
             if(CheckpointReached())
-                currentCheckpoint++;
+            {
+                if(currentCheckpoint + 1 == checkpoints.size())
+                    System.out.println("Enemy reached end of maze");
+                else
+                    currentCheckpoint++;
+            }
             else{
                 x += Delta() * checkpoints.get(currentCheckpoint).getXDirection() * speed;
                 y += Delta() * checkpoints.get(currentCheckpoint).getYDirection() * speed;
@@ -100,10 +105,12 @@ public class Enemy {
         int counter = 1;
 
         while (!found) {
-
-            if(s.getType() !=
+            if(     s.getXPlace()+dir[0]*counter==grid.getTilesWide() ||
+                    s.getYPlace() + dir[1] * counter == grid.getTilesHigh() ||
+                    s.getType() !=
                     grid.GetTile(s.getXPlace()+dir[0]*counter,
-                    s.getYPlace() + dir[1] *counter).getType()){
+                    s.getYPlace() + dir[1] *counter).getType())
+            {
                 found = true;
                 //step back
                 counter --;
@@ -124,19 +131,19 @@ public class Enemy {
         Tile d = grid.GetTile(s.getXPlace(),s.getYPlace()+1);
         Tile l = grid.GetTile(s.getXPlace()-1,s.getYPlace());
 
-        if(s.getType() == u.getType()){
+        if(s.getType() == u.getType() && directions[1] != 1){
             dir[0] = 0;
             dir[1] = -1;
         }
-        else if(s.getType() == r.getType()){
+        else if(s.getType() == r.getType() && directions[0] != -1){
             dir[0] = 1;
             dir[1] = 0;
         }
-        else if(s.getType() == d.getType()){
+        else if(s.getType() == d.getType() && directions[1] != -1){
             dir[0] = 0;
             dir[1] = 1;
         }
-        else if(s.getType() == l.getType()){
+        else if(s.getType() == l.getType() && directions[0] != 1){
             dir[0] = -1;
             dir[1] = 0;
         }
