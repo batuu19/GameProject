@@ -27,8 +27,8 @@ public class Boot {
                 {0,2,2,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0},
                 {0,0,2,2,0,0,1,1,0,1,0,1,1,0,0,0,0,0,0,0},
                 {0,0,2,2,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0},
-                {0,0,2,2,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
-                {0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,2,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -39,7 +39,7 @@ public class Boot {
 
         TileGrid grid = new TileGrid(map);
         grid.SetTile(3,4,grid.GetTile(2,4).getType());
-        Enemy e = new Enemy(QuickLoad("enemy"),grid.GetTile(3,8),grid,64,64,3);
+        Enemy e = new Enemy(QuickLoad("enemy"),grid.GetTile(3,8),grid,64,64,10);
         Wave wave = new Wave(20,e);
         Player player = new Player(grid);
         while(!Display.isCloseRequested()){

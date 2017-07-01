@@ -11,7 +11,7 @@ import static helpers.Clock.Delta;
  * Created by Bartek on 01.07.2017.
  */
 public class Enemy {
-    private int width,height,health,curremtCheckpoint;
+    private int width,height,health, currentCheckpoint;
     private float speed,x,y;
     private Texture texture;
     private Tile startTile;
@@ -37,7 +37,7 @@ public class Enemy {
         this.directions[1] = 0; //Y direction
 
         directions = FindNextD(startTile);
-        this.curremtCheckpoint = 0;
+        this.currentCheckpoint = 0;
         PopulateCheckpointList();
     }
 
@@ -46,10 +46,10 @@ public class Enemy {
             first = false;
         else{
             if(CheckpointReached())
-                curremtCheckpoint++;
+                currentCheckpoint++;
             else{
-                x += Delta() * checkpoints.get(curremtCheckpoint).getxDirection();
-                y += Delta() * checkpoints.get(curremtCheckpoint).getxDirection();
+                x += Delta() * checkpoints.get(currentCheckpoint).getXDirection() * speed;
+                y += Delta() * checkpoints.get(currentCheckpoint).getYDirection() * speed;
 
             }
         }
@@ -57,12 +57,12 @@ public class Enemy {
 
      private boolean CheckpointReached(){
         boolean reached = false;
-        Tile t = checkpoints.get(curremtCheckpoint).getTile();
+        Tile t = checkpoints.get(currentCheckpoint).getTile();
         //check if position reached tile within variance of 3 (arbitrary)
         if(     x > t.getX() - 3 &&
                 x < t.getX() + 3 &&
                 y > t.getY() - 3 &&
-                y > t.getY() + 3 ){
+                y < t.getY() + 3 ){
 
             reached = true;
             x = t.getX();
@@ -80,12 +80,14 @@ public class Enemy {
         while (cont){
             int[] currentD = FindNextD(checkpoints.get(counter).getTile());
             //Check if a next direction/checkpoint exist, end after 20 checkpoints (arbitrary)
-            if(currentD[0] == 2 || counter == 20)
+            if(currentD[0] == 2 || counter == 20){
                 cont = false;
+            }
             else
                 checkpoints.add(FindNextC(checkpoints.get(counter).getTile(),
                     directions = FindNextD(checkpoints.get(counter).getTile())));
             counter++;
+            System.out.println("counter = " + counter);
         }
     }
 
