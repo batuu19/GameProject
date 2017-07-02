@@ -12,24 +12,21 @@ public class Game {
     private WaveManager waveManager;
 
     //temp variables
-    TowerCanon tower;
 
 
     public Game(int [][] map){
         grid = new TileGrid(map);
-        player = new Player(grid);
-//        wave = new Wave(4,new Enemy(QuickLoad("enemy"),grid.GetTile(3,7),grid,64,64,40));
-        waveManager = new WaveManager(new Enemy(QuickLoad("enemy"),grid.GetTile(3,7),grid,64,64,70),
+        waveManager = new WaveManager(new Enemy(QuickLoad("enemy"),grid.getTile(3,7),grid,64,64,70),
                 2,2);
+        player = new Player(grid,waveManager);
 
 
     }
 
-    public void Update(){
-        grid.Draw();
-        waveManager.Update();
+    public void update(){
+        grid.draw();
+        waveManager.update();
         player.Update();
 
-        tower.Update();
     }
 }

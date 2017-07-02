@@ -45,11 +45,11 @@ public class TileGrid {
         }
     }
 
-    public void SetTile(int xCoord,int yCoord,TileType type){
+    public void setTile(int xCoord, int yCoord, TileType type){
         map[xCoord][yCoord] = new Tile(xCoord*64,yCoord * 64,64,64,type);
     }
 
-    public Tile GetTile(int xPlace,int yPlace){
+    public Tile getTile(int xPlace, int yPlace){
         if(xPlace < tilesWide && yPlace < tilesHigh && xPlace > -1 && yPlace > -1)
             return map[xPlace][yPlace];
         else{
@@ -57,11 +57,11 @@ public class TileGrid {
         }
     }
 
-    public void Draw(){
+    public void draw(){
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                map[i][j].Draw();
+                map[i][j].draw();
             }
         }
     }

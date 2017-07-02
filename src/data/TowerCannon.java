@@ -10,7 +10,7 @@ import static helpers.Clock.Delta;
 /**
  * Created by Bartek on 01.07.2017.
  */
-public class TowerCanon {
+public class TowerCannon {
 
     private float x,y,timeSinceLastShot,firingSpeed;
     private int width,height,damage;
@@ -19,7 +19,7 @@ public class TowerCanon {
     private ArrayList<Projectile> projectiles;
     private ArrayList<Enemy> enemies;
 
-    public TowerCanon(Texture baseTexture,Tile startTile,int damage, ArrayList<Enemy> enemies){
+    public TowerCannon(Texture baseTexture, Tile startTile, int damage, ArrayList<Enemy> enemies){
         this.baseTexture = baseTexture;
         this.cannonTexture = QuickLoad("cannonGun");
         this.startTile = startTile;
@@ -34,23 +34,23 @@ public class TowerCanon {
         this.enemies = enemies;
     }
 
-    private void Shoot(){
+    private void shoot(){
         timeSinceLastShot = 0;
         projectiles.add(new Projectile(QuickLoad("bullet"),x+32,y + 32,100,10));
     }
 
-    public void Update(){
+    public void update(){
         timeSinceLastShot += Delta();
         if(timeSinceLastShot > firingSpeed)
-            Shoot();
+            shoot();
         for (Projectile p :
                 projectiles) {
             p.Update();
         }
-        Draw();
+        draw();
     }
 
-    public void Draw(){
+    public void draw(){
         DrawQuadTex(baseTexture,x,y,width,height);
         DrawQuadTexRot(cannonTexture,x,y,width,height,100);
     }

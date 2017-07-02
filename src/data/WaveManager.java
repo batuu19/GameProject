@@ -20,17 +20,17 @@ public class WaveManager {
 
         this.currentWave = null;
 
-        NewWave();
+        newWave();
     }
 
-    public void Update(){
+    public void update(){
         if(!currentWave.isCompleted())
-            currentWave.Update();
+            currentWave.update();
         else
-            NewWave();
+            newWave();
     }
 
-    private void NewWave(){
+    private void newWave(){
         currentWave = new Wave(enemyType,timeBetweenEnemies, enemiesPerWave);
         waveNumber++;
         System.out.println("waveNumber = " + waveNumber);

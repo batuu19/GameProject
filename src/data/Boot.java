@@ -1,14 +1,9 @@
 package data;
 
-import helpers.Artist;
 import helpers.Clock;
-import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-import org.newdawn.slick.opengl.Texture;
 
 import static helpers.Artist.*;
-import static org.lwjgl.opengl.GL11.*;
 
 /**
  * Created by Bartek on 30.06.2017.
@@ -41,7 +36,7 @@ public class Boot {
         while(!Display.isCloseRequested()){
             Clock.update();
 
-            game.Update();
+            game.update();
 
             Display.update();
             Display.sync(60);

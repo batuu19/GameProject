@@ -23,7 +23,7 @@ public class Tile {
         this.texture = QuickLoad(type.textureName);
     }
 
-    public void Draw(){
+    public void draw(){
         DrawQuadTex(texture,x,y,width,height);
     }
 
