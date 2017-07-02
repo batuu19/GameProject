@@ -92,7 +92,6 @@ public class Enemy {
                 checkpoints.add(FindNextC(checkpoints.get(counter).getTile(),
                     directions = FindNextD(checkpoints.get(counter).getTile())));
             counter++;
-            System.out.println("counter = " + counter);
         }
     }
 

@@ -42,12 +42,16 @@ public class Boot {
         Enemy e = new Enemy(QuickLoad("enemy"),grid.GetTile(3,7),grid,64,64,10);
         Wave wave = new Wave(20,e);
         Player player = new Player(grid);
+        TowerCanon tower = new TowerCanon(QuickLoad("cannonBase"),grid.GetTile(2,7),10);
+
         while(!Display.isCloseRequested()){
             Clock.update();
 
             grid.Draw();
             wave.Update();
             player.Update();
+            tower.Update();
+
             Display.update();
             Display.sync(60);
         }
