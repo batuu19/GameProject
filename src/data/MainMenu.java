@@ -16,11 +16,12 @@ public class MainMenu {
     private UI menuUI;
 
     public MainMenu() {
+        float position = 0.35f;
         background = QuickLoad("mainmenu");
         menuUI = new UI();
-        menuUI.addButton("Play","playButton",WIDTH/2-128,(int)(HEIGHT * 0.45f));
-        menuUI.addButton("Editor","editorButton",WIDTH/2-128,(int)(HEIGHT * 0.55f));
-        menuUI.addButton("Quit","quitButton",WIDTH/2-128,(int)(HEIGHT * 0.65f));
+        menuUI.addButton("Play","playButton",WIDTH/2-128,(int)(HEIGHT * position));
+        menuUI.addButton("Editor","editorButton",WIDTH/2-128,(int)(HEIGHT * (position + 0.1f)));
+        menuUI.addButton("Quit","quitButton",WIDTH/2-128,(int)(HEIGHT * (position + 0.2f)));
 
     }
 

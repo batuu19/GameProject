@@ -52,6 +52,7 @@ public class Player {
             y=Mouse.getY();
 
             PrintWriter out = null;
+            //for debuging
             try {
                 out = new PrintWriter(new File("output.txt"));
                 out.print("x =  " + x +
@@ -66,7 +67,10 @@ public class Player {
 
             towerList.add(new TowerCannon(
                     QuickLoad("cannonBase"),
-                    grid.getTile(x /64,(HEIGHT - y -1)/64),10,
+                    grid.getTile(
+                            x /64,
+                            (HEIGHT - y -1)/64),
+                    10,
                     waveManager.getCurrentWave().getEnemyList()));
 
 
