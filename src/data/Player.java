@@ -3,12 +3,12 @@ package data;
 import helpers.Clock;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 
 import java.io.*;
 import java.util.ArrayList;
 
-import static helpers.Artist.HEIGHT;
-import static helpers.Artist.QuickLoad;
+import static helpers.Artist.*;
 
 /**
  * Created by Bartek on 01.07.2017.
@@ -58,7 +58,9 @@ public class Player {
                 out.print("x =  " + x +
                             "\ny = " + y +
                             "\nxTile = " + x/64 +
-                            "\nyTile = " + (HEIGHT - y - 1)/64);
+                            "\nyTile = " + (HEIGHT - y - 1)/64 +
+                            "\nHeight = " + HEIGHT +
+                                    "");
                 out.close();
 
             } catch (IOException e) {
@@ -69,10 +71,10 @@ public class Player {
                     QuickLoad("cannonBase"),
                     grid.getTile(
                             x /64,
-                            (HEIGHT - y -1)/64),
+//                            (HEIGHT - y -1)/64),
+                            ((HEIGHT>SCREEN_HEIGHT?(HEIGHT - ((int) (((float) y / (float) SCREEN_HEIGHT) * (HEIGHT-SCREEN_HEIGHT)))):HEIGHT)- y -1)/64),
                     10,
                     waveManager.getCurrentWave().getEnemyList()));
-
 
         }
 

@@ -27,9 +27,13 @@ public class Boot {
 //            game.update();
             StateManager.update();
 
+
+//            System.out.println("SCREEN_WIDTH = " + Display.getDesktopDisplayMode().getWidth());
+
             Display.update();
             Display.sync(60);
         }
+
 
         Display.destroy();
     }

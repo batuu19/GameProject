@@ -20,6 +20,7 @@ import static org.lwjgl.opengl.GL11.glMatrixMode;
 public class Artist {
 
     public static final int WIDTH = 1280,HEIGHT = 960;
+    public static final int SCREEN_WIDTH = Display.getDesktopDisplayMode().getWidth(), SCREEN_HEIGHT = Display.getDesktopDisplayMode().getHeight();
     public static void BeginSession(){
         Display.setTitle("Witaj "+System.getProperty("user.name"));
         try {
@@ -29,6 +30,7 @@ public class Artist {
             e.printStackTrace();
         }
 
+
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(0,WIDTH,HEIGHT,0,1,-1);
@@ -36,6 +38,7 @@ public class Artist {
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+
     }
 
     public static void DrawQuad(float x,float y,float width,float height){
