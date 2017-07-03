@@ -21,7 +21,7 @@ public class Artist {
 
     public static final int WIDTH = 1280,HEIGHT = 960;
     public static void BeginSession(){
-        Display.setTitle("Nice tittle");
+        Display.setTitle("Witaj "+System.getProperty("user.name"));
         try {
             Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));
             Display.create();

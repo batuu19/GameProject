@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="GameProject:jar">
+  <artifact type="jar" name="GameProject:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/GameProject_jar</output-path>
     <root id="archive" name="GameProject.jar">
       <element id="module-output" name="GameProject" />
@@ -7,8 +7,6 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jars/lwjgl_util.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jars/slick-util.jar" path-in-jar="/" />
       <element id="library" level="project" name="lwjgl" />
-      <element id="dir-copy" path="$PROJECT_DIR$/lib/jars" />
-      <element id="dir-copy" path="$PROJECT_DIR$/lib/natives" />
     </root>
   </artifact>
 </component>

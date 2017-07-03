@@ -1,11 +1,14 @@
 package data;
 
+import helpers.Clock;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import java.io.*;
 import java.util.ArrayList;
 
 import static helpers.Artist.HEIGHT;
+import static helpers.Artist.QuickLoad;
 
 /**
  * Created by Bartek on 01.07.2017.
@@ -17,6 +20,7 @@ public class Player {
     private int index;
     private WaveManager waveManager;
     private ArrayList<TowerCannon> towerList;
+    private boolean leftMouseButtonDown;
 
     public Player(TileGrid grid,WaveManager waveManager) {
         this.grid = grid;
@@ -27,26 +31,78 @@ public class Player {
         this.index = 0;
         this.waveManager = waveManager;
         this.towerList = new ArrayList<>();
+        this.leftMouseButtonDown = false;
     }
 
     public void SetTile(){
         grid.setTile((int)Math.floor(Mouse.getX()/64), (int) Math.floor((HEIGHT - Mouse.getY()-1)/64),types[index]);
     }
 
-    public void Update(){
-        //Mouse input
-        if(Mouse.isButtonDown(0)){
-            SetTile();
+    public void Update() {
+        for (TowerCannon t :
+                towerList) {
+            t.update();
         }
+
+
+        //Mouse input
+        if(Mouse.isButtonDown(0) && !leftMouseButtonDown){
+            int x,y;
+            x= Mouse.getX();
+            y=Mouse.getY();
+
+            PrintWriter out = null;
+            try {
+                out = new PrintWriter(new File("output.txt"));
+                out.print("x =  " + x +
+                            "\ny = " + y +
+                            "\nxTile = " + x/64 +
+                            "\nyTile = " + (HEIGHT - y - 1)/64);
+                out.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            towerList.add(new TowerCannon(
+                    QuickLoad("cannonBase"),
+                    grid.getTile(x /64,(HEIGHT - y -1)/64),10,
+                    waveManager.getCurrentWave().getEnemyList()));
+
+
+        }
+
+        leftMouseButtonDown = Mouse.isButtonDown(0);
         //Keyboard input
         while(Keyboard.next()){
             if(Keyboard.getEventKey()==Keyboard.KEY_RIGHT && Keyboard.getEventKeyState()){
-            MoveIndex();
+                Clock.ChangeMultiplier(0.2f);
+            }
+            if(Keyboard.getEventKey()==Keyboard.KEY_LEFT && Keyboard.getEventKeyState()){
+                Clock.ChangeMultiplier(-0.2f);
+            }
+            if(Keyboard.getEventKey()==Keyboard.KEY_UP && Keyboard.getEventKeyState()){
+                for (TowerCannon t:
+                     towerList) {
+                    t.increaseSpeed();
+                }
+            }
+            if(Keyboard.getEventKey()==Keyboard.KEY_DOWN && Keyboard.getEventKeyState()){
+                for (TowerCannon t:
+                        towerList) {
+                    t.decreaseSpeed();
+                }
+            }
+            if(Keyboard.getEventKey()==Keyboard.KEY_T && Keyboard.getEventKeyState()){
+                towerList.add(new TowerCannon(
+                        QuickLoad("cannonBase"),
+                        grid.getTile(4,13),10,
+                        waveManager.getCurrentWave().getEnemyList()));
             }
         }
     }
 
-    private void MoveIndex(){
+    private void moveIndex(){
         index++;
         if(index > types.length -1)index=0;
     }

@@ -1,7 +1,11 @@
 package data;
 
 import helpers.Clock;
+import helpers.StateManager;
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
+
+import java.io.File;
 
 import static helpers.Artist.*;
 
@@ -14,29 +18,14 @@ public class Boot {
 
         BeginSession();
 
-        int map[][] = {
-                {0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {0,2,2,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1},
-                {0,0,2,2,0,0,1,1,0,1,0,1,1,0,0,0,0,0,0,1},
-                {0,0,2,2,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,1},
-                {0,0,2,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
-                {0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1},
-                {0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-                {0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1},
-                {0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1},
-                {0,0,0,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1}
-        };
 
-        Game game = new Game(map);
+
+//        Game game = new Game(map);
         while(!Display.isCloseRequested()){
             Clock.update();
 
-            game.update();
+//            game.update();
+            StateManager.update();
 
             Display.update();
             Display.sync(60);
@@ -46,6 +35,7 @@ public class Boot {
     }
 
     public static void main(String[] args) {
+        System.setProperty("org.lwjgl.librarypath", new File("lib\\natives").getAbsolutePath());
         new Boot();
     }
 }
