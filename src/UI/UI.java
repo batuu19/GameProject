@@ -5,9 +5,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import java.util.ArrayList;
 
-import static helpers.Artist.DrawQuadTex;
-import static helpers.Artist.HEIGHT;
-import static helpers.Artist.QuickLoad;
+import static helpers.Artist.*;
 
 /**
  * Created by Bartek on 03.07.2017.
@@ -28,7 +26,7 @@ public class UI {
     
     public boolean isButtonClicked(String buttonName){
         Button b = getButton(buttonName);
-        float mouseY = HEIGHT - Mouse.getY() - 1;
+        float mouseY = yPosition();
         if(Mouse.getX() > b.getX() && Mouse.getX() < b.getX() + b.getWidth() &&
                 mouseY > b.getY() && mouseY < b.getY() + b.getHeight())
             return true;

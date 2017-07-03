@@ -1,6 +1,7 @@
 package helpers;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.opengl.Texture;
@@ -99,5 +100,9 @@ public class Artist {
         Texture tex = null;
         tex = LoadTexture("res/" + name + ".png","PNG");
         return tex;
+    }
+
+    public static int yPosition(){
+        return ((HEIGHT>SCREEN_HEIGHT?(HEIGHT - ((int) (((float) Mouse.getY() / (float) SCREEN_HEIGHT) * (HEIGHT-SCREEN_HEIGHT)))):HEIGHT)- Mouse.getY() -1);
     }
 }

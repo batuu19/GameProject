@@ -45,28 +45,12 @@ public class Player {
 
         //Mouse input
         if(Mouse.isButtonDown(0) && !leftMouseButtonDown){
-            int x,y;
+            int x;
             x= Mouse.getX();
-            y=Mouse.getY();
 
-            PrintWriter out = null;
-            //for debuging
-            try {
-                out = new PrintWriter(new File("output.txt"));
-                out.print("x =  " + x +
-                            "\ny = " + y +
-                            "\nxTile = " + x/64 +
-                            "\nyTile = " + (HEIGHT - y - 1)/64 +
-                            "\nHeight = " + HEIGHT +
-                                    "");
-                out.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
             int     xPlace = x /64,
-                    yPlace = ((HEIGHT>SCREEN_HEIGHT?(HEIGHT - ((int) (((float) y / (float) SCREEN_HEIGHT) * (HEIGHT-SCREEN_HEIGHT)))):HEIGHT)- y -1)/64;
+                    yPlace =(yPosition()/64);
 
             if(grid.getTile(xPlace,yPlace).getType() == TileType.Grass)
             towerList.add(new TowerCannon(
