@@ -34,9 +34,7 @@ public class Player {
         this.leftMouseButtonDown = false;
     }
 
-    public void SetTile(){
-        grid.setTile((int)Math.floor(Mouse.getX()/64), (int) Math.floor((HEIGHT - Mouse.getY()-1)/64),types[index]);
-    }
+
 
     public void Update() {
         for (TowerCannon t :
@@ -67,12 +65,15 @@ public class Player {
                 e.printStackTrace();
             }
 
+            int     xPlace = x /64,
+                    yPlace = ((HEIGHT>SCREEN_HEIGHT?(HEIGHT - ((int) (((float) y / (float) SCREEN_HEIGHT) * (HEIGHT-SCREEN_HEIGHT)))):HEIGHT)- y -1)/64;
+
+            if(grid.getTile(xPlace,yPlace).getType() == TileType.Grass)
             towerList.add(new TowerCannon(
                     QuickLoad("cannonBase"),
                     grid.getTile(
-                            x /64,
-//                            (HEIGHT - y -1)/64),
-                            ((HEIGHT>SCREEN_HEIGHT?(HEIGHT - ((int) (((float) y / (float) SCREEN_HEIGHT) * (HEIGHT-SCREEN_HEIGHT)))):HEIGHT)- y -1)/64),
+                            xPlace,
+                            yPlace),
                     10,
                     waveManager.getCurrentWave().getEnemyList()));
 
@@ -108,8 +109,4 @@ public class Player {
         }
     }
 
-    private void moveIndex(){
-        index++;
-        if(index > types.length -1)index=0;
-    }
 }

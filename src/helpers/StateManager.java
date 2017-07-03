@@ -14,7 +14,7 @@ public class StateManager {
         MAINMENU,GAME,EDITOR
     }
 
-    public static GameState gameState = GameState.GAME;
+    public static GameState gameState = GameState.MAINMENU;
     public static MainMenu mainMenu;
     public static Game game;
     public static Editor editor;
@@ -51,7 +51,9 @@ public class StateManager {
                 game.update();
                 break;
             case EDITOR:
-
+                if(editor == null)
+                    editor = new Editor();
+                editor.update();
                 break;
 
         }
