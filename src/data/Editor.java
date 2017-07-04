@@ -24,8 +24,8 @@ public class Editor {
     private int index;
 
     public Editor(){
-        this.grid = new TileGrid();
-//        this.grid = loadMap("map9800");
+//        this.grid = new TileGrid();
+        this.grid = loadMap("maps\\map51.map");
         this.index = 0;
         this.types = new TileType[3];
         this.types[0]=TileType.Grass;
@@ -47,7 +47,7 @@ public class Editor {
                 moveIndex();
             }
             if(Keyboard.getEventKey()==Keyboard.KEY_S && Keyboard.getEventKeyState()){
-                saveMap("map" + getMapNumber(),grid);
+                saveMap("maps\\map" + getMapNumber() + ".map",grid);
             }
 
         }

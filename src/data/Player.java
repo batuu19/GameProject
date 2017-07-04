@@ -22,6 +22,9 @@ public class Player {
     private ArrayList<TowerCannon> towerList;
     private boolean leftMouseButtonDown;
 
+    //temporary
+    private float towerCannonFiringSpeed;
+
     public Player(TileGrid grid,WaveManager waveManager) {
         this.grid = grid;
         this.types = new TileType[3];
@@ -32,6 +35,8 @@ public class Player {
         this.waveManager = waveManager;
         this.towerList = new ArrayList<>();
         this.leftMouseButtonDown = false;
+
+        this.towerCannonFiringSpeed = 1f;
     }
 
 
@@ -51,15 +56,17 @@ public class Player {
 
             int     xPlace = x /64,
                     yPlace =(yPosition()/64);
-
-            if(grid.getTile(xPlace,yPlace).getType() == TileType.Grass)
-            towerList.add(new TowerCannon(
+            TowerCannon towerCannon = new TowerCannon(
                     QuickLoad("cannonBase"),
                     grid.getTile(
                             xPlace,
                             yPlace),
                     10,
-                    waveManager.getCurrentWave().getEnemyList()));
+                    towerCannonFiringSpeed,
+                    waveManager.getCurrentWave().getEnemyList());
+
+            if(towerCannon.checkList(towerList) && grid.getTile(xPlace,yPlace).getType() == TileType.Grass)
+                towerList.add(towerCannon);
 
         }
 
@@ -75,19 +82,19 @@ public class Player {
             if(Keyboard.getEventKey()==Keyboard.KEY_UP && Keyboard.getEventKeyState()){
                 for (TowerCannon t:
                      towerList) {
-                    t.increaseSpeed();
+                    towerCannonFiringSpeed = t.increaseSpeed();
                 }
             }
             if(Keyboard.getEventKey()==Keyboard.KEY_DOWN && Keyboard.getEventKeyState()){
                 for (TowerCannon t:
                         towerList) {
-                    t.decreaseSpeed();
+                    towerCannonFiringSpeed = t.decreaseSpeed();
                 }
             }
             if(Keyboard.getEventKey()==Keyboard.KEY_T && Keyboard.getEventKeyState()){
                 towerList.add(new TowerCannon(
                         QuickLoad("cannonBase"),
-                        grid.getTile(4,13),10,
+                        grid.getTile(4,13),10,towerCannonFiringSpeed,
                         waveManager.getCurrentWave().getEnemyList()));
             }
         }

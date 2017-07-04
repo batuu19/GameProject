@@ -21,7 +21,7 @@ public class TowerCannon {
     private ArrayList<Enemy> enemies;
     private Enemy target;
 
-    public TowerCannon(Texture baseTexture, Tile startTile, int damage, ArrayList<Enemy> enemies){
+    public TowerCannon(Texture baseTexture, Tile startTile, int damage,float firingSpeed, ArrayList<Enemy> enemies){
         this.baseTexture = baseTexture;
         this.cannonTexture = QuickLoad("cannonGun");
         this.startTile = startTile;
@@ -30,7 +30,7 @@ public class TowerCannon {
         this.width = (int) startTile.getWidth();
         this.height = (int) startTile.getHeight();
         this.damage = damage;
-        this.firingSpeed = 1f;
+        this.firingSpeed = firingSpeed;
         this.timeSinceLastShot = 0;
         this.projectiles = new ArrayList<>();
         this.enemies = enemies;
@@ -74,12 +74,22 @@ public class TowerCannon {
         DrawQuadTexRot(cannonTexture,x,y,width,height,angle);
     }
 
-    public void increaseSpeed(){
-        firingSpeed /=2;
+    public float increaseSpeed(){
+        return firingSpeed /=2;
     }
 
-    public void decreaseSpeed(){
-        firingSpeed *=2;
+    public float decreaseSpeed(){
+        return firingSpeed *=2;
+    }
+
+
+    public boolean checkList(ArrayList<TowerCannon> list){
+        for (TowerCannon t :
+                list) {
+            if (this.x == t.x && this.y == t.y)
+                return false;
+        }
+        return true;
     }
 
 }
