@@ -1,7 +1,9 @@
 package data;
 
 import UI.UI;
+import helpers.Clock;
 import helpers.StateManager;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
@@ -33,6 +35,12 @@ public class MainMenu {
                 StateManager.setState(StateManager.GameState.EDITOR);
             if(menuUI.isButtonClicked("Quit"))
                 System.exit(0);
+        }
+
+        while(Keyboard.next()) {
+            if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE && Keyboard.getEventKeyState()) {
+                StateManager.setState(StateManager.GameState.MAINMENU);
+            }
         }
     }
 

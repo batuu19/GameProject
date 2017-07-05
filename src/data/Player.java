@@ -41,10 +41,12 @@ public class Player {
 
 
 
-    public void Update() {
+
+    public void update() {
         for (TowerCannon t :
                 towerList) {
             t.update();
+            t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
         }
 
 
@@ -52,8 +54,6 @@ public class Player {
         if(Mouse.isButtonDown(0) && !leftMouseButtonDown){
             int x;
             x= Mouse.getX();
-
-
             int     xPlace = x /64,
                     yPlace =(yPosition()/64);
             TowerCannon towerCannon = new TowerCannon(
@@ -61,7 +61,7 @@ public class Player {
                     grid.getTile(
                             xPlace,
                             yPlace),
-                    10,
+                    10,1000,
                     towerCannonFiringSpeed,
                     waveManager.getCurrentWave().getEnemyList());
 
@@ -94,7 +94,9 @@ public class Player {
             if(Keyboard.getEventKey()==Keyboard.KEY_T && Keyboard.getEventKeyState()){
                 towerList.add(new TowerCannon(
                         QuickLoad("cannonBase"),
-                        grid.getTile(4,13),10,towerCannonFiringSpeed,
+                        grid.getTile(4,13),
+                        10,1000,
+                        towerCannonFiringSpeed,
                         waveManager.getCurrentWave().getEnemyList()));
             }
         }

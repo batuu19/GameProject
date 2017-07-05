@@ -19,7 +19,7 @@ public class StateManager {
     public static Game game;
     public static Editor editor;
 
-    static int map[][] = {
+    public static int map[][] = {
             {0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
             {0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
             {0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},

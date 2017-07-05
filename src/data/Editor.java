@@ -1,6 +1,7 @@
 package data;
 
 import helpers.Clock;
+import helpers.StateManager;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -12,6 +13,7 @@ import static helpers.Artist.*;
 import static helpers.Leveler.getMapNumber;
 import static helpers.Leveler.loadMap;
 import static helpers.Leveler.saveMap;
+import static helpers.StateManager.map;
 
 /**
  * Created by Bartek on 03.07.2017.
@@ -24,8 +26,9 @@ public class Editor {
     private int index;
 
     public Editor(){
-//        this.grid = new TileGrid();
-        this.grid = loadMap("maps\\map51.map");
+        this.grid = new TileGrid();
+//        this.grid = loadMap("C:\\Users\\Bartek\\Downloads\\xD.magda");
+//        this.grid = new TileGrid(map);
         this.index = 0;
         this.types = new TileType[3];
         this.types[0]=TileType.Grass;
@@ -34,6 +37,12 @@ public class Editor {
     }
 
     public void update() {
+
+        while(Keyboard.next()) {
+            if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE && Keyboard.getEventKeyState()) {
+                StateManager.setState(StateManager.GameState.MAINMENU);
+            }
+        }
         grid.draw();
 
         //Mouse input

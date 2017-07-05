@@ -3,6 +3,7 @@ package data;
 import org.newdawn.slick.opengl.Texture;
 
 import static data.Game.TILE_SIZE;
+import static helpers.Artist.CheckCollision;
 import static helpers.Artist.DrawQuadTex;
 import static helpers.Clock.Delta;
 
@@ -12,17 +13,21 @@ import static helpers.Clock.Delta;
 public class Projectile {
 
     private Texture texture;
-    private float x, y,speed,xVelocity,yVelocity;
+    private float x, y,width,height,speed,xVelocity,yVelocity;
     private int damage;
     private Enemy target;
+    private boolean alive;
 
-    public Projectile(Texture texture, Enemy target, float x, float y, float speed, int damage) {
+    public Projectile(Texture texture, Enemy target, float x, float y,float width,float height, float speed, int damage) {
         this.texture = texture;
         this.x = x;
         this.y = y;
+        this.width = width;
+        this.height = height;
         this.speed = speed;
         this.damage = damage;
         this.target = target;
+        this.alive = true;
         this.xVelocity = 0f;
         this.yVelocity = 0f;
         calculateDirection();
@@ -43,13 +48,21 @@ public class Projectile {
 
     }
 
-    public void Update(){
-        x += xVelocity*speed*Delta();
-        y += yVelocity*speed*Delta();
-        Draw();
+    public void update(){
+        if(alive) {
+            x += xVelocity * speed * Delta();
+            y += yVelocity * speed * Delta();
+            if (CheckCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(), target.getHeight())) {
+                target.damage(damage);
+                alive = false;
+            }
+
+//            System.out.println("check");
+            draw();
+        }
     }
 
-    public void Draw(){
+    public void draw(){
         DrawQuadTex(texture,x,y,32,32);
     }
 }
