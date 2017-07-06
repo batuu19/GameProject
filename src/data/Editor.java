@@ -63,7 +63,7 @@ public class Editor {
     }
 
     private void setTile(){
-        grid.setTile((int)Math.floor(Mouse.getX()/64), (int) Math.floor(yPosition()/64),types[index]);
+        grid.setTile((int)Math.floor(Mouse.getX()/TILE_SIZE), (int) Math.floor(yPosition()/TILE_SIZE),types[index]);
     }
 
 

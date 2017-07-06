@@ -4,6 +4,7 @@ import helpers.StateManager;
 import org.lwjgl.input.Keyboard;
 
 import static helpers.Artist.QuickLoad;
+import static helpers.Artist.TILE_SIZE;
 import static helpers.Leveler.loadMap;
 
 /**
@@ -14,7 +15,6 @@ public class Game {
     private TileGrid grid;
     private Player player;
     private WaveManager waveManager;
-    public static final int TILE_SIZE = 64;
 
     //temp variables
 
@@ -22,7 +22,7 @@ public class Game {
     public Game(int [][] map){
 //        grid = new TileGrid(map);
         grid = loadMap("maps\\main.map");
-        waveManager = new WaveManager(new Enemy(QuickLoad("enemy"),grid.getTile(3,7),grid,64,64,70,25),
+        waveManager = new WaveManager(new Enemy(QuickLoad("enemy"),grid.getTile(3,7),grid,TILE_SIZE,TILE_SIZE,70,25),
                 2,2);
         player = new Player(grid,waveManager);
 

@@ -2,6 +2,7 @@ package data;
 
 import java.util.ArrayList;
 
+import static helpers.Artist.TILE_SIZE;
 import static helpers.Clock.Delta;
 
 /**
@@ -55,7 +56,7 @@ public class Wave {
                 enemyType.getTexture(),
                 enemyType.getStartTile(),
                 enemyType.getTileGrid(),
-                64,64,
+                TILE_SIZE,TILE_SIZE,
                 enemyType.getSpeed(),
                 enemyType.getHealth()));
 

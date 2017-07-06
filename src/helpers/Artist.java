@@ -20,7 +20,7 @@ import static org.lwjgl.opengl.GL11.glMatrixMode;
  */
 public class Artist {
 
-    public static final int WIDTH = 1280,HEIGHT = 960;
+    public static final int WIDTH = 1280,HEIGHT = 960,TILE_SIZE = 64;
     public static final int SCREEN_WIDTH = Display.getDesktopDisplayMode().getWidth(), SCREEN_HEIGHT = Display.getDesktopDisplayMode().getHeight();
     public static void BeginSession(){
         Display.setTitle("Witaj "+System.getProperty("user.name"));

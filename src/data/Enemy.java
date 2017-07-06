@@ -10,7 +10,7 @@ import static helpers.Clock.Delta;
 /**
  * Created by Bartek on 01.07.2017.
  */
-public class Enemy {
+public class Enemy implements Entity{
     private int width,height,health, currentCheckpoint;
     private float speed,x,y;
     private Texture texture;

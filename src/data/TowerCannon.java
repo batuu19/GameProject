@@ -4,7 +4,6 @@ import org.newdawn.slick.opengl.Texture;
 
 import java.util.ArrayList;
 
-import static data.Game.TILE_SIZE;
 import static helpers.Artist.*;
 import static helpers.Clock.Delta;
 
@@ -82,7 +81,7 @@ public class TowerCannon {
         projectiles.add(new Projectile(QuickLoad("bullet"),target,
                 x+TILE_SIZE/2 - TILE_SIZE/4,
                 y + TILE_SIZE/2 - TILE_SIZE/4,
-                32,32,
+                TILE_SIZE/2,TILE_SIZE/2,
                 900,10));
     }
 
@@ -117,22 +116,8 @@ public class TowerCannon {
         DrawQuadTexRot(cannonTexture,x,y,width,height,angle);
     }
 
-    public float increaseSpeed(){
-        return firingSpeed /=2;
-    }
-
-    public float decreaseSpeed(){
-        return firingSpeed *=2;
-    }
 
 
-    public boolean checkList(ArrayList<TowerCannon> list){
-        for (TowerCannon t :
-                list) {
-            if (this.x == t.x && this.y == t.y)
-                return false;
-        }
-        return true;
-    }
+
 
 }
