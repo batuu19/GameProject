@@ -8,18 +8,19 @@ import static helpers.Artist.*;
  */
 public enum TowerType {
 
-    CannonRed(new Texture[]{QuickLoad("cannonBase"),QuickLoad("cannonGun")},10,1),
-    CannonBlue(new Texture[]{QuickLoad("cannonBaseBlue"),QuickLoad("cannonGunBlue")},30,3)
+    CannonRed(new Texture[]{QuickLoad("cannonBase"),QuickLoad("cannonGun")},10,1,1000),
+    CannonBlue(new Texture[]{QuickLoad("cannonBaseBlue"),QuickLoad("cannonGunBlue")},30,3,1000)
     ;
 
     Texture [] textures;
-    int damage;
+    int damage,range;
     float firingSpeed;
 
-    TowerType(Texture[] textures,int damage,float firingSpeed){
+    TowerType(Texture[] textures,int damage,float firingSpeed,int range){
         this.textures = textures;
         this.damage = damage;
         this.firingSpeed = firingSpeed;
+        this.range = range;
     }
 
 }

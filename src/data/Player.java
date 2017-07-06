@@ -19,7 +19,7 @@ public class Player {
     private TileType[] types;
     private WaveManager waveManager;
     private ArrayList<Tower> towerList;
-    private boolean leftMouseButtonDown;
+    private boolean leftMouseButtonDown,rightMouseButtonDown;
 
     //temporary
     private float towerCannonFiringSpeed;
@@ -32,7 +32,8 @@ public class Player {
         this.types[2]=TileType.Water;
         this.waveManager = waveManager;
         this.towerList = new ArrayList<>();
-        this.leftMouseButtonDown = false;
+        this.leftMouseButtonDown  = false;
+        this.rightMouseButtonDown = false;
 
         this.towerCannonFiringSpeed = 1f;
     }
@@ -45,28 +46,31 @@ public class Player {
                 towerList) {
             t.update();
             t.draw();
-//            t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
+            t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
         }
 
 
         //Mouse input
         if(Mouse.isButtonDown(0) && !leftMouseButtonDown){
-            int x;
-            x= Mouse.getX();
-            int     xPlace = x /TILE_SIZE,
-                    yPlace =(yPosition()/TILE_SIZE);
-            Tower towerCannonBlue = new TowerCannonBlue(
+            placeTower(Mouse.getX() / TILE_SIZE,yPosition()/TILE_SIZE,
+                    new TowerCannonBlue(
                     TowerType.CannonBlue,
-                    grid.getTile(
-                            xPlace,
-                            yPlace));
+                    grid.getTile(Mouse.getX() / TILE_SIZE,yPosition()/TILE_SIZE),
+                    waveManager.getCurrentWave().getEnemyList()));
 
-            if(towerCannonBlue.checkList(towerList) && grid.getTile(xPlace,yPlace).getType() == TileType.Grass)
-                towerList.add(towerCannonBlue);
+        }
+        if(Mouse.isButtonDown(1) && !rightMouseButtonDown){
+            placeTower(Mouse.getX() / TILE_SIZE,yPosition()/TILE_SIZE,
+                    new TowerCannonBlue(
+                    TowerType.CannonRed,
+                    grid.getTile(Mouse.getX() / TILE_SIZE,yPosition()/TILE_SIZE),
+                    waveManager.getCurrentWave().getEnemyList()));
 
         }
 
+
         leftMouseButtonDown = Mouse.isButtonDown(0);
+        rightMouseButtonDown = Mouse.isButtonDown(1);
         //Keyboard input
         while(Keyboard.next()){
             if(Keyboard.getEventKey()==Keyboard.KEY_RIGHT && Keyboard.getEventKeyState()){
@@ -75,19 +79,12 @@ public class Player {
             if(Keyboard.getEventKey()==Keyboard.KEY_LEFT && Keyboard.getEventKeyState()){
                 Clock.ChangeMultiplier(-0.2f);
             }
-            if(Keyboard.getEventKey()==Keyboard.KEY_UP && Keyboard.getEventKeyState()){
-                for (Tower t:
-                     towerList) {
-                    towerCannonFiringSpeed = t.increaseSpeed();
-                }
-            }
-            if(Keyboard.getEventKey()==Keyboard.KEY_DOWN && Keyboard.getEventKeyState()){
-                for (Tower t:
-                        towerList) {
-                    towerCannonFiringSpeed = t.decreaseSpeed();
-                }
-            }
         }
+    }
+
+    private void placeTower(int x,int y,Tower tower){
+        if(tower.checkList(towerList) && grid.getTile(x, y).getType() == TileType.Grass)
+            towerList.add(tower);
     }
 
 }
